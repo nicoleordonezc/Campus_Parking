@@ -322,10 +322,7 @@ db.createCollection("parqueos",{
                         pattern: "^[A-Z]",
                         description: "La ciudad debe iniciar con mayúscula"
                     },
-                    zonas:{
-                    bsonType: "array",
-                    description: "Lista de zonas",
-                    items:{
+                    zona:{
                         bsonType:"object",
                         required: [
                         "nombre",
@@ -362,4 +359,4 @@ db.createCollection("parqueos",{
             additionalProperties:false
 }},
     additionalProperties:false
-}}})
+}})
