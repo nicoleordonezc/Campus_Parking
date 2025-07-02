@@ -360,3 +360,9 @@ db.createCollection("parqueos",{
 }},
     additionalProperties:false
 }})
+
+//INDEX
+
+db.parqueos.createIndex({"vehiculo.propietario.cedula":1}),
+db.parqueos.createIndex({"sede.ciudad":1, "sede.zona.nombre":1}),
+db.parqueos.createIndex({"vehiculo.tipo_vehiculo":1})
