@@ -20,7 +20,12 @@ try {
                 'precio': 3700, 
                 'vehiculo_permitido': 'Moto'}}
     });
-    dbSession.zonas.updateOne({nombre:"Zona de motos", precio:3700}, {$inc:{cupo:-1}});
+    const result = dbSession.zonas.updateOne(
+    { nombre: "Zona de motos", precio: 3700, cupo: { $gt: 0 } },
+    { $inc: { cupo: -1 } });
+    if (result.matchedCount === 0) {
+    throw new Error("No hay cupos disponibles para esta zona");
+    };
     dbSession.sedes.updateOne({ciudad:"Medellín", "zonas.nombre":"Zona de motos"}, {$inc:{"zonas.$.cupo":-1}});
     session.commitTransaction(),
     print("El documento ha sido ingresdo exitosamente y las colecciones han sido actualizadas")
@@ -31,4 +36,3 @@ try {
     session.endSession(),
     print("La sesión ha finalizado")
 }
-

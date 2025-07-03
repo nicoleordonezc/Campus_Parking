@@ -405,4 +405,9 @@ db.createCollection("parqueos",{
 
 db.parqueos.createIndex({"vehiculo.propietario.cedula":1}),
 db.parqueos.createIndex({"sede.ciudad":1, "sede.zona.nombre":1}),
-db.parqueos.createIndex({"vehiculo.tipo_vehiculo":1})
+db.parqueos.createIndex({"vehiculo.tipo_vehiculo":1}),
+db.zonas.createIndex({"nombre":1, "cupo":1}),
+db.sedes.createIndex({"ciudad":1, "zonas.nombre":1}),
+db.vehiculos.createIndex({"placa":1}),
+db.usuarios.createIndex({"nombre":1, "cedula":1}),
+db.empleados.createIndex({"nombre":1, "cedula":1})
