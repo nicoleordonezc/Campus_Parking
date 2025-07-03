@@ -1,18 +1,18 @@
 //Administrador
 
 db.createUser({
-    user:"nicolAdmin",
+    user:"admin",
     pwd:"admin123",
     roles:[
-        {role:"dbAdmin", db:"admin"},
-        {role:"readWrite", db:"admin"}
+        {role:"dbAdmin", db:"campus_parking"},
+        {role:"readWrite", db:"campus_parking"}
     ]
 })
 
 //Empleado de sede
 
 db.createUser({
-    user:"juanP",
+    user:"juanPerez",
     pwd:"1234567890",
     roles:[
         {role:"acceso_empleados", db:"campus_parking"}
@@ -23,7 +23,7 @@ db.createRole({
     role:"acceso_empleados",
     privileges:[
         {
-            resource:{db:"campus_parking", collection:"vehiculos"},
+            resource:{db:"campus_parking", collection:"usuarios"},
             actions:["find"]
         },
         {
@@ -44,7 +44,7 @@ db.createRole({
 //Cliente
 
 db.createUser({
-    user:"anaT",
+    user:"anaTorres",
     pwd:"1122334455",
     roles:[
         {role:"acceso_cliente", db:"campus_parking"}
@@ -59,7 +59,7 @@ db.createRole({
             actions:["find"]
         },
         {
-            resource:{db:"campus_parking", collection:"zonas"},
+            resource:{db:"campus_parking", collection:"sedes"},
             actions:["find"]
         },
         {

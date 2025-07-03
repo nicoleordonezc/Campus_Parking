@@ -51,7 +51,6 @@ db.createCollection("sedes", {
             required: [
                 "_id",
                 "ciudad",
-                "empleados",
                 "zonas"
             ],
             properties:{
@@ -123,7 +122,64 @@ db.createCollection("usuarios", {
             required: [
                 "_id",
                 "nombre",
-                "cedula"
+                "cedula",
+                "contacto"
+            ],
+            properties:{
+                _id:{
+                    bsonType: "objectId",
+                    description: "Identificador único"
+                },
+                nombre: {
+                    bsonType: "string",
+                    pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$",
+                    description: "El nombre y apellido deben iniciar con mayúscula"
+                },
+                cedula:{
+                    bsonType: "string",
+                    maxLength: 10,
+                    description: "La cédula no incluye puntos o comas y tiene máximo 10 caracteres"
+                },
+                contacto:{
+                    bsonType: "object",
+                    description: "Contácto tiene: telefono y email",
+                    required:[
+                        "telefono",
+                        "email"
+                    ],
+                    properties: {
+                        telefono:{
+                            bsonType: "string",
+                            pattern: "\\d{3}-\\d{3}-\\d{4}",
+                            description: "El patrón del telefono debe ser xxx-xxx-xxxx"
+                        },
+                        email: {
+                            bsonType: "string",
+                            pattern: "@\\w+\\.com$",
+                            description: "El email debe tener @ y finalizar en .com"
+                        }
+                    },                    
+                        additionalProperties: false
+                }
+            },
+            additionalProperties: false
+        }
+    }
+})
+
+//COLECCION DE EMPLEADOS
+
+
+db.createCollection("empleados", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: [
+                "_id",
+                "nombre",
+                "cedula",
+                "cargo",
+                "contacto"
             ],
             properties:{
                 _id:{
@@ -211,24 +267,8 @@ db.createCollection("vehiculos",{
                     not:{required:["placa"]}
                 },
                 propietario:{
-                    bsonType: "object",
-                    required:[
-                         "nombre",
-                         "cedula"
-                    ],
-                    properties:{
-                        nombre: {
-                        bsonType: "string",
-                        pattern: "^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$",
-                        description: "El nombre y apellido deben iniciar con mayúscula"
-                        },
-                        cedula:{
-                        bsonType: "string",
-                        maxLength: 10,
-                        description: "La cédula no incluye puntos o comas y tiene máximo 10 caracteres"
-                        }
-                    },
-                    additionalProperties:false
+                    bsonType: "objectId",
+                    description: "Identificador único del usuario propietario del vehículo",
                 }
             }, 
             additionalProperties:false
