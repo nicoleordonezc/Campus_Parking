@@ -347,14 +347,13 @@ db.createCollection("parqueos",{
                                 }
                             }
                         }
-                    }, 
-                    additionalProperties:false
+                    }
                 },
                 sede:{
                      bsonType: "object",
                 required: [
                     "ciudad",
-                    "zonas"
+                    "zona"
                 ],
                 properties:{
                     ciudad: {
@@ -391,14 +390,13 @@ db.createCollection("parqueos",{
                             enum: ["Carro", "Moto", "Camión", "Bicicleta"],
                             description: "Los vehículos permitidos solo pueden tomar estos valores: Carro, Moto, Camión, Bicicleta"
                         }
-                    },
-                    additionalProperties: false
+                    }
                 }
             }
-        }, 
-            additionalProperties:false
-}},
-    additionalProperties:false
+        }
+            
+}}
+    
 }})
 
 //INDEX
