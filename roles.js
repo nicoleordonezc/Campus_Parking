@@ -11,17 +11,6 @@ db.createUser({
 
 //Empleado de sede
 
-db.createUser({
-    user:"juanPerez",
-    pwd:"1234567890",
-    roles:[]
-});
-
-db.grantRolesToUser(
-    "juanPerez",
-    [{role:"acceso_empleados", db:"campus_parking"}]
-);
-
 db.createRole({
     role:"acceso_empleados",
     privileges:[
@@ -37,25 +26,25 @@ db.createRole({
             resource:{db:"campus_parking", collection:"sedes"},
             actions:["find"]
         },
-         {
+        {
             resource:{db:"campus_parking", collection:"zonas"},
             actions:["find"]
         }
     ], roles:[]
 });
 
-//Cliente
-
 db.createUser({
-    user:"anaTorres",
-    pwd:"1122334455",
+    user:"juanPerez",
+    pwd:"1234567890",
     roles:[]
 });
 
 db.grantRolesToUser(
-    "anaTorres",
-    [{role:"acceso_cliente", db:"campus_parking"}]
-)
+    "juanPerez",
+    [{role:"acceso_empleados", db:"campus_parking"}]
+);
+
+//Cliente
 
 db.createRole({
     role:"acceso_cliente",
@@ -74,3 +63,14 @@ db.createRole({
         }
     ], roles:[]
 })
+
+db.createUser({
+    user:"anaTorres",
+    pwd:"1122334455",
+    roles:[]
+});
+
+db.grantRolesToUser(
+    "anaTorres",
+    [{role:"acceso_cliente", db:"campus_parking"}]
+)
