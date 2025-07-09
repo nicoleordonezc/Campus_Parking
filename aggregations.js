@@ -153,3 +153,18 @@ db.parqueos.aggregate([
         CupoExcedido: "$total"
     }}
 ])
+
+//listar usuarios con total de vehiculos y tipo de vehiculos
+
+db.vehiculos.aggregate([
+    {$lookup:{
+  from: "usuarios",
+  localField:"propietario",
+  foreignField:"_id",
+  as: "propietario"
+  }},
+    {$unwind:"$propietario"},
+    {$group:{_id:{vehiculo: "$tipo_vehiculo", propietario:"$propietario.nombre"}, totalVehiculos:{$sum:1}}},
+    {$sort:{"id_propietario":1}},
+     {$project: {_id:0, vehiculo: "$_id.vehiculo", propietario:"$_id.propietario", "totalVehiculos":1}}
+  ])
