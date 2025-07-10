@@ -1,3 +1,113 @@
+// resumen de parqueo
+
+function generarResumen({ cliente, vehiculo, zona, horasUsadas }) {
+  const costoTotal = zona.precio * horasUsadas;
+  return {
+    cliente,
+    vehiculo,
+    zona: zona.nombre,
+    costoTotal
+  };
+}
+
+// Ejemplo:
+const resultado5 = generarResumen({
+  cliente: { nombre: "Ana Torres", cedula: "1122334455" },
+  vehiculo: { tipo: "Carro", placa: "ABC123" },
+  zona: { nombre: "Zona cubierta", precio: 5000 },
+  horasUsadas: 3
+});
+
+console.log(resultado5);
+
+
+//cliente frecuente con descuento
+
+function calcularDescuento(costoBase, numeroParqueosPrevios, descuento) {
+  const aplicaDescuento = numeroParqueosPrevios > 10;
+  const descuentoAplicado = aplicaDescuento ? costoBase * descuento : 0;
+  const costoFinal = costoBase - descuentoAplicado;
+
+  return { costoBase, descuentoAplicado, costoFinal };
+}
+
+// Ejemplo:
+const resultado4 = calcularDescuento(30000, 12, 0.1);
+console.log(resultado4);
+
+
+// asignación de zonas
+
+function asignarZona(tipoVehiculo, zonas) {
+  const zona = zonas.find(z => z.vehiculo_permitido === tipoVehiculo && z.cupo > 0);
+  return zona ? { zonaAsignada: zona.nombre } : null;
+}
+
+// Ejemplo:
+const resultado3 = asignarZona("Carro", [
+  { nombre: "Zona cubierta", cupo: 0, vehiculo_permitido: "Carro" },
+  { nombre: "Zona descubierta", cupo: 5, vehiculo_permitido: "Carro" },
+  { nombre: "Zona motos", cupo: 2, vehiculo_permitido: "Moto" }
+]);
+
+console.log(resultado3);
+
+
+// calculo de carga eléctrica 
+
+function calcularCarga(carga) {
+  const { horaInicioCarga, horaFinCarga, consumoPromedioKwH, tarifaKwh } = carga;
+
+  const inicio = new Date(horaInicioCarga);
+  const fin = new Date(horaFinCarga);
+  const horas = Math.round((fin - inicio) / (1000 * 60 * 60));
+
+  const energiaConsumida = horas * consumoPromedioKwH;
+  const costoCarga = energiaConsumida * tarifaKwh;
+
+  return { tiempoCargaHoras: horas, energiaConsumida, costoCarga };
+}
+
+// Ejemplo:
+const resultado2 = calcularCarga({
+  horaInicioCarga: "2025-07-10T08:00:00",
+  horaFinCarga: "2025-07-10T12:00:00",
+  consumoPromedioKwH: 7,
+  tarifaKwh: 600
+});
+
+console.log(resultado2);
+
+
+// calculo de multa parqueo excedido
+
+function calcularMulta(parqueo) {
+  const { horaIngreso, horaSalida, tarifaHora, tiempoMaximoHoras, multa } = parqueo;
+
+  const ingreso = new Date(horaIngreso);
+  const salida = new Date(horaSalida);
+  const horas = Math.round((salida - ingreso) / (1000 * 60 * 60));
+
+  const costoBase = horas * tarifaHora;
+  const multaAplicada = horas > tiempoMaximoHoras ? multa : 0;
+  const costoFinal = costoBase + multaAplicada;
+
+  return { tiempoTotalHoras: horas, costoBase, multaAplicada, costoFinal };
+}
+
+// Ejemplo:
+const resultado1 = calcularMulta({
+  horaIngreso: "2025-07-10T10:00:00",
+  horaSalida: "2025-07-10T14:30:00",
+  tarifaHora: 4000,
+  tiempoMaximoHoras: 2,
+  multa: 15000
+});
+
+console.log(resultado1);
+
+
+// devuelve tiempo total en horas y costo total
 function calcularCostoParqueo(parqueo) {
   const { horaIngreso, horaSalida, tarifaHora } = parqueo;
 
