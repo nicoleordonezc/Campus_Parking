@@ -1,3 +1,26 @@
+function calcularCostoParqueo(parqueo) {
+  const { horaIngreso, horaSalida, tarifaHora } = parqueo;
+
+  // Convertir a objetos Date
+  const ingreso = new Date(horaIngreso);
+  const salida = new Date(horaSalida);
+
+  // Calcular diferencia en milisegundos
+  const diferenciaMs = salida - ingreso;
+
+  // Convertir a horas (1000 ms * 60 s * 60 min)
+  const horas = diferenciaMs / (1000 * 60 * 60);
+
+  // Redondear al entero más cercano
+  const tiempoTotalHoras = Math.round(horas);
+
+  // Calcular costo total
+  const costoTotal = tiempoTotalHoras * tarifaHora;
+
+  return { tiempoTotalHoras, costoTotal };
+}
+
+
 // Tiempo promedio de parqueo por tipo de vehículo
 
 db.parqueos.aggregate([
